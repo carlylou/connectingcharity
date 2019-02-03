@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Results of your search</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+
+    <link rel="stylesheet" href="../style/activitiesResultsPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+
+
+</head>
+<body>
+
+<#include "navigationBar.html" parse=true>
+
+    <div id="main-container" class="container">
+        <ul class="nav nav-pills nav-fill" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link nav-link-search-inactive" href="/results/charities">Charities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Activities</a>
+            </li>
+        </ul>
+
+        <div class="vertical-spacer"></div>
+
+        <div>
+            <form id="searchFormSubmit" action="/results/activities">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="holdDateFromInput">
+                            From date:
+                        </label>
+                        <input class="form-control" type="date" id="holdDateFromInput" name="holdDateFrom"
+                               value="${RequestParameters.holdDateFrom!'dd/mm/yyyy'}"/>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="holdDateToInput">
+                            To date:
+                        </label>
+                        <input class="form-control" type="date" id="holdDateToInput" name="holdDateTo"
+                               value="${RequestParameters.holdDateTo!'dd/mm/yyyy'}"/>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="countryPicker" style="visibility: hidden">Country:</label>
+                        <select class="form-control" id="countryPicker" name="country">
+                            <option>Country</option>
+                            <#if countries??>
+                                <#list countries as country>
+                                    <option>${country}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
+                    <div class="form-group-btn col">
+                        <label for="buttonSubmit" style="visibility: hidden">Go!</label>
+                        <button id="buttonSubmit" type="submit" class="btn btn-danger btn-md form-control"> Go!
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <#if activities??>
+            <div id="searchResultsContainer" class="container">
+
+                <#list activities as activity>
+                    <div class="row my-5">
+                        <div class="col-md-3">
+                            <a href="/charityPage/${activity.charity.id}" style="display: block;">
+                                <img alt="Charity logo" width="100%" height="100%" style="object-fit: scale-down"
+                                     src=${activity.charity.logoFile!"../img/no-charity-logo.png"}>
+                            </a>
+                        </div>
+                        <div class="col-md">
+                            <h3>${activity.title}</h3>
+                            <div>By the charity: <a
+                                    href="/charityPage/${activity.charity.id}">${activity.charity.name}</a>
+                            </div>
+                            <div>Current volunteers: ${activity.donors?size}</div>
+                            <div>Country:
+                                <a href="/results?searchString=&causeString=Causes&countryString=${activity.country}"
+                                   class="badge badge-success">${activity.country}</a>
+                            </div>
+                            <div>Date the activity will be held: ${activity.holdDate?date}</div>
+                        </div>
+
+                    </div>
+                    <div class="vertical-spacer"></div>
+                </#list>
+            </div>
+            <#else>
+                Your search did not match any results
+        </#if>
+
+        <#if activities??>
+            <div id="pageChanger" class="container text-center">
+                <#if pageNumber!= 0>
+                    <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+                </#if>
+                <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
+                <#if pageNumber!= (numberOfPages - 1)>
+                    <a href="results/activities?holdDateFrom=${RequestParameters.holdDateFrom!}&holdDateTo=${RequestParameters.holdDateTo!}&country=${RequestParameters.country!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+                </#if>
+            </div>
+        </#if>
+    </div>
+
+    <#include "footer.html" parse=false>
+
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
+
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
+
+
+        <script src="../script/activitiesResultsPage.js"></script>
+
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
+
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
+
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</body>
+</html>

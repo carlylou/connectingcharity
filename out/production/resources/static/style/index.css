@@ -1,0 +1,37 @@
+.verticalSpacer {
+    min-height: 2em;
+}
+
+.card {
+    margin-top: 2em;
+}
+
+.charity-desc-p {
+    min-height: 75px !important;
+}
+
+.carousel-caption {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+}
+
+.carousel-item {
+    width: 100%;
+}
+
+.carousel-item > img {
+    display: block;
+    min-width: 100%;
+    padding-left: 8px;
+    height: 32rem;
+}
+
+.carousel {
+    background-color: white;
+}
+
+.carousel-control-prev:hover, .carousel-control-prev, .carousel-control-next:hover, .carousel-control-next {
+    color: black;
+}

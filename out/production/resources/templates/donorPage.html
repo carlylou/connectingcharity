@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Donor page</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+    <!--paypal api-->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <!--css-->
+    <link rel="stylesheet" href="../style/charityPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+</head>
+<body>
+
+<#include "navigationBar.html" parse=true>
+
+    <div class="container" id="main-container">
+        <h1>Welcome to your personal page, <span class="nameLabel"></span></h1>
+
+        <#list payments>
+            <div class="vertical-spacer-small"></div>
+            <div>
+                <h2>This is your donation history:</h2>
+                <#items as payment>
+                    <div class="container">
+                        <h5>Your donation to <a href="/charityPage/${payment.charity.id}">${payment.charity.name}</a>
+                        </h5>
+                        <ul>
+                            <li>amount: ${payment.paymentDetails.amount} £</li>
+                            <li>date: ${payment.paymentDetails.date?date}</li>
+                        </ul>
+                    </div>
+                </#items>
+            </div>
+            <#else>
+                You have no payments
+        </#list>
+    </div>
+
+    <#include "footer.html" parse=false>
+
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+    <!-- popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+
+    <!-- boostrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+
+    <!--js-->
+    <script src="../script/charityPage.js"></script>
+
+    <!--handle Login.js-->
+    <script src="../script/handleLogin.js"></script>
+
+    <!-- Cookie handling -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <!--ajax setup-->
+    <script src="../script/ajaxSetup.js"></script>
+
+</body>
+</html>

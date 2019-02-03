@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Connecting Charities</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+    <!--paypal api-->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <!--css-->
+    <link rel="stylesheet" href="/style/charityPage.css"/>
+    <link rel="stylesheet" href="/style/override.css"/>
+    <link rel="stylesheet" href="/style/footer.css"/>
+</head>
+<body>
+
+<#include "navigationBar.html" parse=true>
+
+
+    <div class="vertical-spacer"></div>
+
+    <div id="main-container" class="container">
+        Sorry, something went wrong. Please contact the site owner using the feedback button at the end of this page.
+    </div>
+
+    <#include "footer.html" parse=false>
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
+
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
+
+        <!--js-->
+
+        <!--Google Login JS-->
+
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
+
+
+        <!--handle papal payment button of cause page-->
+        <script type="text/javascript" src="../script/causePayment.js"></script>
+
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
+
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</body>
+</html>

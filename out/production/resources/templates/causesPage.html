@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>causes</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+
+    <!--css-->
+    <link rel="stylesheet" href="../style/charityPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+</head>
+<body>
+
+
+<#include "navigationBar.html" parse=true>
+    <div id="main-container" class="container">
+        <div class="vertical-spacer"></div>
+        <#if causes??>
+            <div id="searchResultsContainer" class="container">
+                <#list causes as singleCause>
+                    <div class="row my-5" id="charity-row-${singleCause.id}">
+                        <a href="/causePage/${singleCause.id}">
+                            <div class="col-md-3" id="charity-img-${singleCause.id}"><img alt="Charity logo" width="150px"
+                                                                                      height="150px"
+                                                                                      src=${singleCause.logoFile!"../img/no-charity-logo.png"}>
+                            </div>
+                        </a>
+                        <div class="col-md-9" id="charity-body-${singleCause.id}">
+                            <a href="/causePage/${singleCause.id}">
+                                <strong>${singleCause.name}</strong>
+                            </a>
+                            <p class="charity-desc-p">${singleCause.description}</p>
+                        </div>
+                    </div>
+                </#list>
+            </div>
+        </#if>
+    </div>
+
+    <#include "footer.html" parse=false>
+
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+    <!-- popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+
+    <!-- boostrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+
+    <!--js-->
+
+    <!--handle Login.js-->
+    <script src="../script/handleLogin.js"></script>
+
+    <!--ajax setup-->
+    <script src="../script/ajaxSetup.js"></script>
+
+    <!-- Cookie handling -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</body>
+</html>

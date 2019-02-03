@@ -1,0 +1,62 @@
+.bg-primary, .btn-primary, .badge-primary {
+    background-color: #CC0700 !important;
+    border-color: #CC0700 !important;
+}
+
+body {
+    min-width: 35rem;
+}
+
+#main-container {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    background-color: #FFFFFF;
+    min-height: 20rem;
+    border-radius: 0rem 0rem 2rem 2rem;
+}
+
+body {
+    background-color: #FBFBFB;
+}
+
+.vertical-spacer {
+    min-height: 2em;
+}
+
+.vertical-spacer-small {
+    min-height: 1em;
+}
+
+.vertical-center {
+    height: 100%;
+    width: 100%;
+
+    text-align: center; /* align the inline(-block) elements horizontally */
+    font: 0/0 a; /* remove the gap between inline(-block) elements */
+}
+
+.vertical-center:before { /* create a full-height inline block pseudo=element */
+    content: " ";
+    display: inline-block;
+    vertical-align: middle; /* vertical alignment of the inline element */
+    height: 100%;
+}
+
+.vertical-center > .container {
+    max-width: 100%;
+
+    display: inline-block;
+    vertical-align: middle; /* vertical alignment of the inline element */
+    /* reset the font property */
+    font: 16px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.authenticated, .unauthenticated {
+    display: none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #E30800 !important;
+}

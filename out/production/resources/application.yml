@@ -1,0 +1,53 @@
+debug: true
+spring:
+    datasource:
+        password: ZfJUKV7QGV
+        url: jdbc:postgresql://db.doc.ic.ac.uk/lb1317?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory
+        username: lb1317
+    freemarker:
+        cache: false
+        suffix: .html
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+        hibernate:
+            ddl-auto: validate
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        properties:
+            hibernate:
+                format_sql: true
+                temp:
+                    use_jdbc_metadata_defaults: false
+        show-sql: true
+
+
+facebook:
+    client:
+      clientId: 1570076623086785
+      clientSecret: a2e1ed690171604f2a1aeac8401edcfd
+      accessTokenUri: https://graph.facebook.com/oauth/access_token
+      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://graph.facebook.com/me
+
+google:
+  client:
+    clientId:  538988778269-d630p25tpdv3bj0gci6u8sjlgupgksvt.apps.googleusercontent.com
+    clientSecret:  S_s7dCM6H29G1I_q9rQO0HX5
+    accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: profile email
+  resource:
+    userInfoUri: https://www.googleapis.com/userinfo/v2/me
+    preferTokenInfo: false
+
+logging:
+  level:
+    root: INFO
+    com.charityconnector: INFO

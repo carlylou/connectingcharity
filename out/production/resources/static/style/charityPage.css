@@ -1,0 +1,25 @@
+#editImageButton {
+    position: absolute;
+    margin-top: 4rem;
+    margin-left: 6.3rem;
+    background-color: #CC0700 !important;
+}
+
+.edit-badge {
+    display:none;
+    margin: 0rem 0rem 0rem 0rem;
+    padding: 0rem .25rem 0rem .25rem;
+}
+
+.badge-default {
+    background-color: #D6D6D6;
+    color: #000000 !important;
+}
+
+.row {
+    min-height: 3rem;
+}
+
+.row-article {
+    min-height: 4rem !important;
+}

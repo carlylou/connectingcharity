@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Results of your search</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+
+    <link rel="stylesheet" href="../style/charitiesResultsPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+
+
+</head>
+<body>
+
+<#include "navigationBar.html" parse=true>
+
+    <div id="main-container" class="container">
+        <ul class="nav nav-pills nav-fill" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Charities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-link-search-inactive" href="/results/activities">Activities</a>
+            </li>
+        </ul>
+        <div>
+            <form id="searchFormSubmit" action="/results/charities">
+                <div class="input-group" style="margin-top: 40px;margin-left:10px;width:98.5%">
+                    <div class="input-group-btn">
+                        <button type="button" id="causeButton"
+                                style="background-color: rgba(255, 255, 255, 0);color: black;"
+                                class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Causes
+                        </button>
+                        <div class="dropdown-menu" id="causeOptions" }>
+                            <#if causeOptions??>
+                                <a class="dropdown-item cause-dropdown-item"
+                                   onclick="changeCauseName(this.innerHTML);">Causes</a>
+                                <#list causeOptions as causeName>
+                                    <a class="dropdown-item cause-dropdown-item"
+                                       onclick="changeCauseName(this.innerHTML);">${causeName}</a>
+                                </#list>
+                            </#if>
+                        </div>
+                    </div>
+                    <div class="input-group-btn">
+                        <button type="button" id="countryButton"
+                                style="background-color: rgba(255, 255, 255, 0);color: black;"
+                                class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            Countries
+                        </button>
+                        <div class="dropdown-menu" id="countryOptions">
+                            <a class="dropdown-item cause-dropdown-item"
+                               onclick="changeCountryName(this.innerHTML);">Countries</a>
+                            <#if countryOptions??>
+                                <#list countryOptions as countryName>
+                                    <a class="dropdown-item"
+                                       onclick="changeCountryName(this.innerHTML)">${countryName}</a>
+                                </#list>
+                            </#if>
+                        </div>
+                    </div>
+                    <input type="text" id="searchBarField" style="" name="searchString" class="form-control"
+                           placeholder="Please search for charities here"
+                           value="${RequestParameters.searchString!}">
+                    <input id="causeResult" name="causeString" value="Causes" style="display:none">
+                    <input id="countryResult" name="countryString" value="Countries" style="display:none">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-danger btn-md"> Go!
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <#if charities??>
+            <div id="searchResultsContainer" class="container">
+
+                <#list charities as charity>
+                    <div class="row my-5" id="charity-row-${charity.id}">
+                        <a href="/charityPage/${charity.id}">
+                            <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo"
+                                                                                      width="150px"
+                                                                                      height="150px"
+                                                                                      style="object-fit: scale-down"
+                                                                                      src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                            </div>
+                        </a>
+                        <div class="col-md-9" id="charity-body-${charity.id}">
+                            <a href="/charityPage/${charity.id}">
+                                <strong>${charity.name}</strong>
+                            </a>
+                            <p class="charity-desc-p">${charity.description}</p>
+                        </div>
+                    </div>
+                </#list>
+            </div>
+            <#else>
+                <#if searchedName??>
+                    <div id="sorryNoCharties" class="container">
+                        No charities matched your search, please try again
+                    </div>
+                </#if>
+        </#if>
+
+        <#if charities??>
+            <div id="pageChanger" class="container text-center">
+                <#if pageNumber!= 0>
+                    <a href="/results/charities?searchString=${RequestParameters.searchString!}&causeString=${RequestParameters.causeString!}&countryString=${RequestParameters.countryString!}&pageSize=${pageSize}&pageNumber=${pageNumber - 1}"><</a>
+                </#if>
+                <span id="pageCounter">Page ${pageNumber + 1} of ${numberOfPages}</span>
+                <#if pageNumber!= (numberOfPages - 1)>
+                    <a href="/results/charities?searchString=${RequestParameters.searchString!}&causeString=${RequestParameters.causeString!}&countryString=${RequestParameters.countryString!}&pageSize=${pageSize}&pageNumber=${pageNumber + 1}">></a>
+                </#if>
+            </div>
+        </#if>
+    </div>
+    </div>
+
+    </div>
+
+    <#include "footer.html" parse=false>
+
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
+
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
+
+
+        <script src="../script/charitiesResultsPage.js"></script>
+
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
+
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
+
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</body>
+</html>

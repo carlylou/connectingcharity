@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">ConnectCharites</a>
+    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navBarButtons" aria-controls="navBarButtons" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navBarButtons" class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/results/charities">Search</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/causesPage">Causes</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/charity/random">A Random Charity</a></li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item active authenticated">
+                <span style="display: none;" id="userIdSpan"></span>
+                <span style="display: none;" id="userIsCharity"><#if isCharity??>${isCharity!}</#if></span>
+                <span style="display: none;" id="userCharityId"><#if charityId??>${charityId?c}</#if></span>
+                <a class="nav-link"
+                <#if (isCharity!"false") == "true">
+                    href="/charityPage/${charityId?c}"
+                    <#else>
+                        href="/donorPage/${userId!}"
+                </#if>
+                >Welcome, <span class="nameLabel"></span></a>
+            </li>
+            <li class="nav-item active authenticated"><a class="nav-link" href="#" data-value="test"
+                                                         onclick="logOutUser();" id="logOut">LogOut</a></li>
+            <li class="nav-item active unauthenticated"><a class="nav-link" href="#" data-toggle="modal"
+                                                           data-target="#loginModal" id="login">Login</a></li>
+            <li class="nav-item active"><a style="display: none;" class="nav-link" href="#" id="editLink">Edit
+                this
+                page</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="modal fade show" id="loginModal" tabindex="-1" role="dialog"
+     aria-labelledby="loginLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginLabel">Login with Following Accounts:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="display:inline">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a id="charityLoginTab" class="nav-link active" data-toggle="tab"
+                           href="#charityLogin" role="tab" aria-controls="charityLogin"
+                           aria-expanded="true">Charity Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="donorLoginTab" class="nav-link" data-toggle="tab"
+                           href="#donorLogin" role="tab" aria-controls="donorLogin"
+                           aria-expanded="false">Donor Login</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="charityLogin" style="padding-top:20px" class="tab-pane fade active show"
+                         role="tabpanel"
+                         aria-labelledby="charityLoginTab" aria-expanded="true">
+                        <div class="container">
+                            <div class="row login-buttons">
+                                <div class="col">
+                                    <a href="/login/charity/facebook">
+                                        <img height="40rem" src="../img/facebook_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="/login/charity/google">
+                                        <img height="40rem" src="../img/google_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="donorLogin" style="padding-top:20px" class="tab-pane fade" role="tabpanel"
+                         aria-labelledby="donorLoginTab" aria-expanded="false">
+                        <div class="container">
+                            <div class="row login-buttons">
+                                <div class="col">
+                                    <a href="/login/donor/facebook">
+                                        <img height="40rem" src="../img/facebook_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="/login/donor/google">
+                                        <img height="40rem" src="../img/google_sign_in_button.png"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="loginModelCloseButton" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

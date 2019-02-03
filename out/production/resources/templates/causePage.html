@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>${cause.name}</title>
+
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+    <!--paypal api-->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <!--css-->
+    <link rel="stylesheet" href="../style/charityPage.css"/>
+    <link rel="stylesheet" href="../style/override.css"/>
+</head>
+<body>
+
+<!--Used for FB share -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.11&appId=893012947524181';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<#include "navigationBar.html" parse=true>
+    <div id="causeIdDiv" style="display : none;">${cause.id}</div>
+
+    <div id="main-container" class="container">
+        <div id="cause-container" class="container">
+            <div class="row">
+                <div class="col-">
+                    <div><img alt="Cause Logo" width="150px" height="150px"
+                              src=${cause.logoFile!"../img/no-charity-logo.png"}></div>
+                </div>
+                <div class="col-md">
+                    <h2><span id="causeName">${cause.name}</span>
+                    </h2>
+                    <div id="charityDesc">
+                        ${cause.description}
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <div id="donate-button" class="btn btn-primary text-center" data-toggle="modal"
+                         data-target="#donateModal">Donate to this cause!
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-spacer"></div>
+            <div class="vertical-spacer"></div>
+        </div>
+
+        <#if charities??>
+            <div id="searchResultsContainer" class="container">
+                <h3>Related Charities: </h3>
+                <#list charities as charity>
+                    <div class="row my-5" id="charity-row-${charity.id}">
+                        <a href="/charityPage/${charity.id}">
+                            <div class="col-md-3" id="charity-img-${charity.id}"><img alt="Charity logo" width="150px"
+                                                                                      height="150px"
+                                                                                      src=${charity.logoFile!"../img/no-charity-logo.png"}>
+                            </div>
+                        </a>
+                        <div class="col-md-9" id="charity-body-${charity.id}">
+                            <a href="/charityPage/${charity.id}">
+                                <strong>${charity.name}</strong>
+                            </a>
+                            <p class="charity-desc-p">${charity.description}</p>
+                        </div>
+                    </div>
+                </#list>
+            </div>
+            <#else>
+                <h3>There are no related charities</h3>
+        </#if>
+    </div>
+
+    <#include "footer.html" parse=false>
+
+        <div class="modal fade show" id="donateModal" tabindex="-1" role="dialog"
+             aria-labelledby="donateLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="donateLabel">Your donation succeeded!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Thanks for being willing to donate to all the charities working on ${cause.name}, please
+                            enter
+                            the donation amount and proceed to the PayPal checkout</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="inputDonationAmount"
+                                       placeholder="0.00">
+                            </div>
+                        </form>
+                        <p id="amountErrorHint" style="color:red; display:none; ">Sorry, the donation amount should be
+                            positive. </p>
+                        <p>Note that this payment will be processed internally by us, so the receiver of the payment
+                            will be
+                            Connect Charities itself.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <div id="paypal-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="donateSuccessModal" tabindex="-1" role="dialog"
+             aria-labelledby="donateSuccessLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="donateSuccessLabel">Your donation succeeded!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your donation was succesful! Thank you for helping the charities working on
+                            ${cause.name}!</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+                             data-layout="button" data-size="large" data-mobile-iframe="true"><a
+                                class="fb-xfbml-parse-ignore" target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+        <!-- popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                crossorigin="anonymous"></script>
+
+        <!-- boostrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                crossorigin="anonymous"></script>
+
+        <!--js-->
+
+        <!--Google Login JS-->
+
+        <!--handle Login.js-->
+        <script src="../script/handleLogin.js"></script>
+
+
+        <!--handle papal payment button of cause page-->
+        <script type="text/javascript" src="../script/causePayment.js"></script>
+
+        <!--ajax setup-->
+        <script src="../script/ajaxSetup.js"></script>
+
+        <!-- Cookie handling -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+</body>
+</html>
